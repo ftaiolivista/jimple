@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Jimple</h1><p><a href="https://travis-ci.org/fjorgemota/jimple"><img src="https://travis-ci.org/fjorgemota/jimple.svg" alt="Build Status"></a>
+<a href="http://npmjs.org/package/jimple/"><img src="https://img.shields.io/npm/v/jimple.svg" alt="npm"></a>
+<a href="http://npmjs.org/package/jimple/"><img src="https://img.shields.io/npm/dt/jimple.svg" alt="npm"></a>
+<a href="http://npmjs.org/package/jimple"><img src="https://img.shields.io/node/v/jimple.svg" alt="node"></a>
+<a href="https://www.codacy.com/app/fjorgemota/jimple"><img src="https://api.codacy.com/project/badge/1f3ecae240a747d090bef0340251f57c" alt="Codacy Badge"></a>
+<a href="https://codeclimate.com/github/fjorgemota/jimple"><img src="https://codeclimate.com/github/fjorgemota/jimple/badges/gpa.svg" alt="Code Climate"></a>
+<a href="https://codeclimate.com/github/fjorgemota/jimple/coverage"><img src="https://codeclimate.com/github/fjorgemota/jimple/badges/coverage.svg" alt="Test Coverage"></a>
+<a href="https://codeclimate.com/github/fjorgemota/jimple"><img src="https://codeclimate.com/github/fjorgemota/jimple/badges/issue_count.svg" alt="Issue Count"></a></p>
+<p>This project is a port of <a href="https://github.com/silexphp/Pimple/">Pimple Dependency Injection container</a> to NodeJS and to browser using features provided by ES6.</p>
+<p>All the code is tested using Mocha and seems to be stable. Below is the documentation for the project:</p>
+<h2>Features</h2><p>Good projects have good features. And because this here's the list of features that Jimple supports:</p>
+<ul>
+<li>Define services;</li>
+<li>Define factories;</li>
+<li>Define parameters easily;</li>
+<li>Defining services/parameters/factories from another files - because you should be able to split your configuration easily;</li>
+<li>Simple API;</li>
+<li>Runs on NodeJS and on browser;</li>
+<li>Allows extending services easily;</li>
+<li>Allow to get the raw service creator easily;</li>
+<li>Pure Javascript;</li>
+<li>Stable API;</li>
+<li>No dependencies (in node, in browser we need a shim);</li>
+<li>No module loader integrated - You can use <strong>any</strong> module loader you want;</li>
+<li><a href="https://travis-ci.org/fjorgemota/jimple">Fully tested</a> on each commit;</li>
+<li><a href="https://codeclimate.com/github/fjorgemota/jimple/coverage">100% code coverage</a>;</li>
+<li>Fully Documented;</li>
+<li>Less than <a href="https://github.com/fjorgemota/jimple/blob/master/src/Jimple.js">100 SLOC</a>;</li>
+<li>I already said that it have a really Simple API? :)</li>
+</ul>
+<h3>Testing without installing anything</h3><p>If you liked that features, feel free to test Jimple <strong>free</strong> on a NodeJS environment without installing anything on your machine by using <a href="https://tonicdev.com/npm/jimple">Tonic</a>. Give it a try. :)</p>
+<h2>Installation</h2><p>The installation of this package is very simple: In fact, it can be installed by just running:</p>
+<pre class="prettyprint source"><code>    npm install --save jimple</code></pre><p>If using NodeJS (this installs the package based purely on ES 6), or:</p>
+<pre class="prettyprint source"><code>    bower install --save jimple</code></pre><p>If you want to use this package in the browser.</p>
+<p>Note that the bower package uses a version compiled by <a href="http://babeljs.io">Babel</a>. And because this, and because browsers does not have great support to Map and Set yet, you will need to load <a href="https://babeljs.io/docs/usage/polyfill/"><code>babel-polyfill</code></a> (or some other similar polyfill) <strong>before</strong> the load of this package on the browser.</p>
+<h2>Usage</h2><p>Creating a Jimple Container is just a matter of creating a Jimple instance:</p>
+<pre class="prettyprint source lang-js"><code>var Jimple = require(&quot;jimple&quot;);
+
+var container = new Jimple();</code></pre><p>In the browser, you can load Jimple using various ways:</p>
+<ul>
+<li>AMD</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>    define([&quot;jimple&quot;], function(Jimple) {
+        // Code using Jimple here..
+    });</code></pre><ul>
+<li>CommonJS/Browserify:</li>
+</ul>
+<pre class="prettyprint source lang-js"><code>    var Jimple = require(&quot;jimple&quot;);</code></pre><ul>
+<li>Script tag:</li>
+</ul>
+<pre class="prettyprint source lang-html"><code>    &lt;script language=&quot;javascript&quot; src=&quot;path/to/Jimple.js&quot;>&lt;/script></code></pre><p>Again, it's important to note that Jimple needs of a polyfill to Map and Set classes - which are not supported by all the latest browsers actually - to do so, you can choice between some options, like <a href="https://babeljs.io/docs/usage/polyfill/"><code>babel-polyfill</code></a> for example.</p>
+<p>Jimple, as Pimple and many other dependency injections containers, manage two different kind of data: <strong>services</strong> and <strong>parameters</strong>.</p>
+<h2>Defining services</h2><p>As Pimple describes, a service is an object that does something as part of a larger system. Examples of services: a database connection, a templating engine, or a mailer. Almost any global object can be a service.</p>
+<p>Services in Jimple (and in Pimple too!) are defined by anonymous functions that return an instance of an object. Note that, in Jimple, you cannot use a generator as a service, as they will be detected as parameters, so, just <strong>pure</strong> functions can be a service. Different from Pimple, however, here we need to call the method <code>set()</code> on Jimple container, as Proxies in NodeJS seems to not be stable:</p>
+<pre class="prettyprint source lang-js"><code>// define some services
+container.set('session_storage', function (c) {
+    return new SessionStorage('SESSION_ID');
+});
+
+container.set('session', function (c) {
+    return new Session(c.get('session_storage'));
+});</code></pre><p>Notice that the anonymous function that define a service has access to the current container instance, allowing references to other services or parameters.</p>
+<p>The objects are created on demand, just when you get them. The order of the definitions does not matter.</p>
+<p>Using the defined services is very easy, too:</p>
+<pre class="prettyprint source lang-js"><code>// get the session object
+var session = container.get('session');
+
+// the above call is roughly equivalent to the following code:
+// var storage = new SessionStorage('SESSION_ID');
+// var session = new Session(storage);</code></pre><h2>Defining factory services</h2><p>By default, when you get a service, Jimple automatically cache it's value, returning always the <strong>same instance</strong> of it. If you want a different instance to be returned for all calls, wrap your anonymous function with the <code>factory()</code> method:</p>
+<pre class="prettyprint source lang-js"><code>container.set('session', container.factory(function (c) {
+    return new Session(c.get('session_storage'));
+}));</code></pre><p>Now, each time you call <code>container.get('session')</code>, a new instance of <code>Session</code> is returned for you.</p>
+<h2>Defining parameters</h2><p>Defining a parameter allows to ease the configuration of your container from the outside and to store global values. In Jimple, parameters are defined as anything that it's not a function:</p>
+<pre class="prettyprint source lang-js"><code>// define a parameter called cookie_name
+container.set('cookie_name', 'SESSION_ID');</code></pre><p>If you change the <code>session_storage</code> service definition like below:</p>
+<pre class="prettyprint source lang-js"><code>container.set('session_storage', function (c) {
+    return new SessionStorage(c.get('cookie_name'));
+});</code></pre><p>You can now easily change the cookie name by overriding the <code>cookie_name</code> parameter instead of redefining the service definition.</p>
+<h3>Defining parameters based on environment variables (NodeJS only)</h3><p>Do you wanna do define parameters in the container based on environment variables? It's okay! You can define it easily like that:</p>
+<pre class="prettyprint source lang-js"><code>//define parameter based on environment variable
+container.set('cookie_name', process.env.COOKIE_NAME);</code></pre><h2>Optional/Default parameters/services</h2><p>Not all services need all the services or parameters always, and you may do well with a default value for an parameter or service. In this case, you can do something like that:</p>
+<pre class="prettyprint source lang-js"><code>container.set('session_storage', function (c) {
+    return new SessionStorage(c.has('cookie_name') ? c.get('cookie_name') : 'COOKIE_ID');
+});</code></pre><p>In this example, if the parameter <code>cookie_name</code> does not exist, the SessionStorage will be instantiated with the default <code>'COOKIE_ID'</code>, and this works for services too. :)</p>
+<h2>Protecting parameters</h2><p>Because Jimple see anything that is a function as a service, you need to wrap anonymous functions with the <code>protect()</code> method to store them as parameters:</p>
+<pre class="prettyprint source lang-js"><code>container.set('random_func', container.protect(function () {
+    return Math.random();
+}));</code></pre><h2>Modifying Services after Definition</h2><p>In some cases you may want to modify a <strong>service definition</strong> (note that you cannot extend a parameter, including protected parameters) after it has been defined. You can use the <code>extend()</code> method to define additional code to be run on your service just after it is created:</p>
+<pre class="prettyprint source lang-js"><code>container.set('session_storage', function (c) {
+    return new SessionStorage(c.get('cookie_name'));
+});
+
+container.extend('session_storage', function (storage, c) {
+    storage.someMethod();
+
+    return storage;
+});</code></pre><p>The first argument is the name of the service to extend, the second a function that gets access to the object instance and the container. Note that you</p>
+<h2>Extending a Container</h2><p>If you use the same libraries over and over, you might want to reuse some services from one project to the next one; package your services into a provider by implementing the following object structure by duck-typing:</p>
+<pre class="prettyprint source lang-js"><code>var provider = {
+    &quot;register&quot;: function(c) {
+        // Define your services and parameters here
+    }
+}</code></pre><p>Because JS has no support to interfaces yet, we cannot validate too much the structure of the provider.</p>
+<p>After creating a object with that structure, you can register it in the container:</p>
+<pre class="prettyprint source lang-js"><code>container.register(provider);</code></pre><h3>Extending a container from a file (NodeJS/Browserify only)</h3><p>If you want to split your container's configuration (so each file is more..simple and specific), you can create multiple files like that:</p>
+<p><strong>file1.js:</strong></p>
+<pre class="prettyprint source lang-js"><code>module.exports.register = function(container) {
+    // Define your services and parameters here
+}</code></pre><p>To load the package, you can do something like:</p>
+<pre class="prettyprint source lang-js"><code>container.register(require(&quot;./file1&quot;))</code></pre><p>You can, inclusive, create <strong>directories</strong> with container's configuration, by doing something like that:</p>
+<p><strong>xpto/file1.js:</strong></p>
+<pre class="prettyprint source lang-js"><code>module.exports.register = function(container) {
+    // Define your services and parameters here
+}</code></pre><p><strong>xpto/file2.js:</strong></p>
+<pre class="prettyprint source lang-js"><code>module.exports.register = function(container) {
+    // Define your services and parameters here
+}</code></pre><p><strong>xpto/index.js:</strong></p>
+<pre class="prettyprint source lang-js"><code>module.exports.register = function(container) {
+    container.register(require(&quot;./file1&quot;));
+    container.register(require(&quot;./file2&quot;));   
+}</code></pre><p>And, finally, in some file creating the container:</p>
+<pre class="prettyprint source lang-js"><code>container.register(require(&quot;./xpto&quot;));</code></pre><p>Note that the <strong>index.js</strong> file is loaded first on <strong>xpto</strong> directory, and that <strong>index.js</strong> file loads the files <strong>file1.js</strong> and <strong>file2.js</strong> present on that directory. You can do that for any number of directories. :)</p>
+<h2>Fetching the Service Creation Function</h2><p>When you access an object, Jimple automatically calls the anonymous function that you defined, which creates the service object for you. If you want to get raw access to this function, but don't want to <code>protect()</code> that service, you can use the <code>raw()</code> method to access the function directly:</p>
+<pre class="prettyprint source lang-js"><code>container.set('session', function (c) {
+    return new Session(c.get('session_storage'));
+});
+
+var sessionFunction = container.raw('session');</code></pre><h2>Last, but not least important: Customization (NodeJS only)</h2><p>Do you wanna to customize Jimple's functionally? You can! Just extend it using ES6's class syntax:</p>
+<pre class="prettyprint source lang-js"><code>var Jimple = require(&quot;jimple&quot;);
+
+class ABigContainer extends Jimple {
+    // Overwrite any of Jimple's method here, or add new methods
+}
+
+var container = new ABigContainer();</code></pre><p>Good customization. :)</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Jimple.html">Jimple</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Sat Oct 08 2016 15:18:29 GMT-0300 (BRT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
