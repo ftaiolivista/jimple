@@ -13,6 +13,33 @@
 })(this, function (module) {
     "use strict";
 
+    /**
+     * A function that receives a container and returns an object corresponding to a service
+     * @callback Jimple~serviceConstructor
+     * @param {Jimple} c - The container used to get other parameters and services needed to construct the new service
+     * @return {} A value corresponding to a service
+     */
+
+    /**
+     * A function that receives the old service and the container and extends the service, returning the new value corresponding to that service
+     * @callback Jimple~serviceExtender
+     * @param {} service - The value corresponding to the old service
+     * @param {Jimple} c - The container used to get other parameters and services needed to extend the service
+     * @return {} A value corresponding to the new value of the service
+     */
+
+    /**
+     * A function that will be used to register new services and parameters in the container
+     * @callback Jimple~provider
+     * @param {Jimple} c - The container used to set new services and parameters
+     */
+
+    /**
+     * A object that has a register method that receives a container and is able to extend that container
+     * @typedef Jimple~containerProvider
+     * @property {Jimple~provider} register - A function that will be called to register new services and parameters in the container
+     */
+
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
@@ -50,10 +77,9 @@
     function isPlainObject(value) {
         if (Object.prototype.toString.call(value) !== '[object Object]') {
             return false;
-        } else {
-            var prototype = Object.getPrototypeOf(value);
-            return prototype === null || prototype === Object.prototype;
         }
+        var prototype = Object.getPrototypeOf(value);
+        return prototype === null || prototype === Object.prototype;
     }
 
     function checkDefined(container, key) {
@@ -67,6 +93,10 @@
     }
 
     var Jimple = function () {
+        /**
+         * Create a Jimple Container.
+         * @param {Object} [values] - An optional object whose keys and values will be associated in the container at initialization
+         */
         function Jimple(values) {
             _classCallCheck(this, Jimple);
 
@@ -79,6 +109,14 @@
                 this.set(key, values[key]);
             }, this);
         }
+        /**
+         * Return the specified parameter or service. If the service is not built yet, this function will construct the service
+         * injecting all the dependencies needed in it's definition so the returned object is totally usable on the fly.
+         * @param {string} key - The key of the parameter or service to return
+         * @return {} The object related to the service or the value of the parameter associated with the key informed
+         * @throws If the key does not exist
+         */
+
 
         _createClass(Jimple, [{
             key: "get",

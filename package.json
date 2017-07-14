@@ -2,7 +2,7 @@
   "name": "jimple",
   "version": "1.4.2",
   "description": "A Dependency Injection container to NodeJS and to the browser developed in ES6",
-  "main": "src/Jimple.js",
+  "main": "dist/Jimple.js",
   "tonicExampleFilename": "tonicExample.js",
   "scripts": {
     "build-for-browser": "babel -d dist src/",
